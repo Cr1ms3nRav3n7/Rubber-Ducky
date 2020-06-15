@@ -1,5 +1,6 @@
 # Rubber-Ducky
-Repository for Hak5 Rubbery Ducky Scripts
+Repository for Hak5 Rubbery Ducky Scripts.
+All scripts need to be encoded into Ducky Script to run.
 
 
 # Windows-Gather-Info
